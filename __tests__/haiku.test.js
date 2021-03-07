@@ -15,7 +15,7 @@ describe ('Test', () => {
     expect(newTest.lineChecker()).toEqual(3);
   })
 
-  test('should return a message to the user whether the haiku has correct number of lines or not', () => {
+  test('should return a boolean to the user whether the haiku has correct number of lines or not', () => {
     expect(newTest.requiredLines()).toEqual(true);
   })
   
