@@ -5,9 +5,9 @@ describe ('Test', () => {
   
   let newTest;
   beforeEach(() => {
-    let haiku = `The old pond- 
-    a frog jumps in, 
-    sound of water`;
+    let haiku = `a world of dew,
+    And within every dewdrop
+    A world of struggle.`
     newTest = new HaikuChecker(haiku);
   });
 
@@ -19,6 +19,9 @@ describe ('Test', () => {
     expect(newTest.requiredLines()).toEqual(true);
   })
   
+  test('should return the number of syllables in each line', () => {
+    expect(newTest.syllableBreaker()).toEqual()
+  })
   
 })
 
