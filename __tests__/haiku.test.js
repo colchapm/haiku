@@ -19,12 +19,18 @@ describe ('Test', () => {
     expect(newTest.requiredLines()).toEqual(true);
   })
 
-    test('should convert original haiku to all lowercase letters', () => {
-    expect(newTest.lowerCase()).toEqual(`a world of dew,
+  test('should convert original haiku to all lowercase letters', () => {
+    expect(newTest.lowerCase()).toEqual(newTest.haiku = `a world of dew,
     and within every dewdrop
     a world of struggle.`);
     })
   
+    test('should remove all the whitespace from the haiku and return the three lines in an array', () => {
+      newTest.lowerCase();
+      expect(newTest.lineBreaker()).toEqual([["a", "world", "of", "dew,"], ["and", "within", "every", "dewdrop"], ["a", "world", "of", "struggle."]]);
+    })
+
+
   test('should return the number of syllables in each line', () => {
     expect(newTest.syllableBreaker()).toEqual()
   })

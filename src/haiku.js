@@ -1,5 +1,6 @@
 export default function HaikuChecker(haiku) {
   this.haiku = haiku;
+  this.rows = [];
 }
 
 HaikuChecker.prototype.lineChecker = function () {
@@ -17,7 +18,16 @@ HaikuChecker.prototype.requiredLines = function () {
 }
 
 HaikuChecker.prototype.lowerCase = function () {
-  return this.haiku.toLowerCase();
+  return this.haiku = this.haiku.toLowerCase();
+}
+
+HaikuChecker.prototype.lineBreaker = function () {
+  console.log(this.haiku)
+  let syllableBreak = this.haiku.split(/\r\n|\r|\n/);
+  let testLineOne = syllableBreak[0].split(" ").filter(element => element !== '');
+  let testLineTwo = syllableBreak[1].split(" ").filter(element => element !== '');
+  let testLineThree = syllableBreak[2].split(" ").filter(element => element !== '');
+  return this.rows = [testLineOne, testLineTwo, testLineThree]
 }
 
 HaikuChecker.prototype.syllableBreaker = function () {
