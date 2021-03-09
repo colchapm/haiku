@@ -16,6 +16,10 @@ HaikuChecker.prototype.requiredLines = function () {
   }
 }
 
+HaikuChecker.prototype.lowerCase = function () {
+  return this.haiku.toLowerCase();
+}
+
 HaikuChecker.prototype.syllableBreaker = function () {
   let syllableBreak = this.haiku.split(/\r\n|\r|\n/);
   let testLineOne = syllableBreak[0].split(" ").filter(element => element !== '');

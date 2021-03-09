@@ -5,7 +5,7 @@ describe ('Test', () => {
   
   let newTest;
   beforeEach(() => {
-    let haiku = `a world of dew,
+    let haiku = `A world of dew,
     And within every dewdrop
     A world of struggle.`
     newTest = new HaikuChecker(haiku);
@@ -18,6 +18,12 @@ describe ('Test', () => {
   test('should return a boolean to the user whether the haiku has correct number of lines or not', () => {
     expect(newTest.requiredLines()).toEqual(true);
   })
+
+    test('should convert original haiku to all lowercase letters', () => {
+    expect(newTest.lowerCase()).toEqual(`a world of dew,
+    and within every dewdrop
+    a world of struggle.`);
+    })
   
   test('should return the number of syllables in each line', () => {
     expect(newTest.syllableBreaker()).toEqual()
