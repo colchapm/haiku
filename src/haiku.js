@@ -22,7 +22,6 @@ HaikuChecker.prototype.lowerCase = function () {
 }
 
 HaikuChecker.prototype.lineBreaker = function () {
-  console.log(this.haiku)
   let syllableBreak = this.haiku.split(/\r\n|\r|\n/);
   let testLineOne = syllableBreak[0].split(" ").filter(element => element !== '');
   let testLineTwo = syllableBreak[1].split(" ").filter(element => element !== '');
@@ -30,41 +29,39 @@ HaikuChecker.prototype.lineBreaker = function () {
   return this.rows = [testLineOne, testLineTwo, testLineThree]
 }
 
-HaikuChecker.prototype.syllableBreaker = function () {
-  let syllableBreak = this.haiku.split(/\r\n|\r|\n/);
-  let testLineOne = syllableBreak[0].split(" ").filter(element => element !== '');
-  let testLineTwo = syllableBreak[1].split(" ").filter(element => element !== '');
-  let testLineThree = syllableBreak[2].split(" ").filter(element => element !== '');
 
-  let vowelCount = 0;
+HaikuChecker.prototype.syllableCounter = function () {
+  let syllableCount = 0;
 
-  for (let i = 0; i < testLineOne.length; i++) {
-    
-     //the silent 'e' logic
-    let reverseWord = testLineOne[i].split('');
+  //this loops over each line
+  for (let o = 0; o < this.rows.length; o++) {
+  //this loops over each word
+    for (let i = 0; i < this.rows[o].length; i++) {
+     
+    let reverseWord = this.rows[o][i].split('');
     reverseWord.reverse();
-    if(testLineOne[i].length > 3 && reverseWord[0] === "e" && 'aeiou'.indexOf(reverseWord[1]) === -1){
+
+    if(this.rows[o][i].length > 3 && reverseWord[0] === "e" && 'aeiou'.indexOf(reverseWord[1]) === -1) {
       if (reverseWord[1] === "l" && 'aeiou'.indexOf(reverseWord[2]) === -1) {
-        vowelCount += 0;
+        syllableCount += 0;
       } else {
-        vowelCount -= 1;
+        syllableCount -= 1;
       }
     } 
 
-    //vowel logic
-    let wordsToLetters = testLineOne[i].split('')
+    let wordsToLetters = this.rows[o][i].split('')
+    //this loops over each letter
       for (let j = 0; j < wordsToLetters.length; j++) {
         if (wordsToLetters[j] === 'a' | wordsToLetters[j] === 'e' | wordsToLetters[j] === 'i'| wordsToLetters[j] === 'o' | wordsToLetters[j] === 'u') {
           if (wordsToLetters[j-1] === 'a' | wordsToLetters[j-1] === 'e' | wordsToLetters[j-1] === 'i' |  wordsToLetters[j-1] === 'o' | wordsToLetters[j-1] === 'u') {
-          vowelCount += 0;      
+          syllableCount += 0;      
           } else {
-          vowelCount += 1;
+          syllableCount += 1;
         }
         }
       } 
-      console.log(testLineOne[i] + " " + vowelCount);
-  } 
-  console.log(vowelCount);
-  //if special count is <= 0 then make special count
-  return [testLineOne, testLineTwo, testLineThree];
+    }
+  }
+  return syllableCount
 }
+

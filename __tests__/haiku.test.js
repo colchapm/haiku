@@ -30,9 +30,10 @@ describe ('Test', () => {
       expect(newTest.lineBreaker()).toEqual([["a", "world", "of", "dew,"], ["and", "within", "every", "dewdrop"], ["a", "world", "of", "struggle."]]);
     })
 
-
-  test('should return the number of syllables in each line', () => {
-    expect(newTest.syllableBreaker()).toEqual()
+  test('should return the number of syllables in the entire haiku', () => {
+    newTest.lowerCase();
+    newTest.lineBreaker();
+    expect(newTest.syllableCounter()).toEqual(16);
   })
   
 })
