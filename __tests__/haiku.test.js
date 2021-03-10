@@ -25,9 +25,16 @@ describe ('Test', () => {
     a world of struggle.`);
     })
   
-    test('should remove all the whitespace from the haiku and return the three lines in an array', () => {
-      newTest.lowerCase();
-      expect(newTest.lineBreaker()).toEqual([["a", "world", "of", "dew,"], ["and", "within", "every", "dewdrop"], ["a", "world", "of", "struggle."]]);
+  test('should remove all punctuation from the haiku', () => {
+    newTest.lowerCase();
+    expect(newTest.removePunct()).toEqual(newTest.haiku = `a world of dew
+    and within every dewdrop
+    a world of struggle`);
+    })
+
+  test('should remove all the whitespace from the haiku and return the three lines in an array', () => {
+    newTest.lowerCase();
+    expect(newTest.lineBreaker()).toEqual([["a", "world", "of", "dew,"], ["and", "within", "every", "dewdrop"], ["a", "world", "of", "struggle."]]);
     })
 
   test('should return the number of syllables in the entire haiku', () => {

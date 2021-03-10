@@ -21,6 +21,10 @@ HaikuChecker.prototype.lowerCase = function () {
   return this.haiku = this.haiku.toLowerCase();
 }
 
+HaikuChecker.prototype.removePunct = function () {
+  return this.haiku = this.haiku.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+}
+
 HaikuChecker.prototype.lineBreaker = function () {
   let syllableBreak = this.haiku.split(/\r\n|\r|\n/);
   let testLineOne = syllableBreak[0].split(" ").filter(element => element !== '');
@@ -31,7 +35,7 @@ HaikuChecker.prototype.lineBreaker = function () {
 
 
 HaikuChecker.prototype.syllableCounter = function () {
-  let syllableCount = 0;
+  let syllableCount = [0,0,0];
 
   //this loops over each line
   for (let o = 0; o < this.rows.length; o++) {
@@ -41,25 +45,29 @@ HaikuChecker.prototype.syllableCounter = function () {
     let reverseWord = this.rows[o][i].split('');
     reverseWord.reverse();
 
+    console.log(reverseWord)
     if(this.rows[o][i].length > 3 && reverseWord[0] === "e" && 'aeiou'.indexOf(reverseWord[1]) === -1) {
       if (reverseWord[1] === "l" && 'aeiou'.indexOf(reverseWord[2]) === -1) {
-        syllableCount += 0;
+        syllableCount[o] += 0;
       } else {
-        syllableCount -= 1;
+        syllableCount[o] -= 1;
       }
     } 
-
+    
     let wordsToLetters = this.rows[o][i].split('')
     //this loops over each letter
       for (let j = 0; j < wordsToLetters.length; j++) {
         if (wordsToLetters[j] === 'a' | wordsToLetters[j] === 'e' | wordsToLetters[j] === 'i'| wordsToLetters[j] === 'o' | wordsToLetters[j] === 'u') {
           if (wordsToLetters[j-1] === 'a' | wordsToLetters[j-1] === 'e' | wordsToLetters[j-1] === 'i' |  wordsToLetters[j-1] === 'o' | wordsToLetters[j-1] === 'u') {
-          syllableCount += 0;      
+          syllableCount[o] += 0;      
           } else {
-          syllableCount += 1;
+          syllableCount[o] += 1;
         }
         }
       } 
+      console.log(syllableCount[0])
+
+
     }
   }
   return syllableCount
