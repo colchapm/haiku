@@ -1,5 +1,6 @@
-export default function HaikuChecker(haiku) {
+export default function HaikuChecker(haiku, syllables) {
   this.haiku = haiku;
+  this.syllables = syllables;
   this.rows = [];
 }
 
@@ -35,8 +36,7 @@ HaikuChecker.prototype.lineBreaker = function () {
 
 
 HaikuChecker.prototype.syllableCounter = function () {
-  let syllableCount = [0,0,0];
-
+  this.syllables = [0,0,0];
   //this loops over each line
   for (let o = 0; o < this.rows.length; o++) {
   //this loops over each word
@@ -45,31 +45,36 @@ HaikuChecker.prototype.syllableCounter = function () {
     let reverseWord = this.rows[o][i].split('');
     reverseWord.reverse();
 
-    console.log(reverseWord)
-    if(this.rows[o][i].length > 3 && reverseWord[0] === "e" && 'aeiou'.indexOf(reverseWord[1]) === -1) {
-      if (reverseWord[1] === "l" && 'aeiou'.indexOf(reverseWord[2]) === -1) {
-        syllableCount[o] += 0;
+    if(this.rows[o][i].length > 3 && reverseWord[0] === "e" && 'aeiouy'.indexOf(reverseWord[1]) === -1) {
+      if (reverseWord[1] === "l" && 'aeiouy'.indexOf(reverseWord[2]) === -1) {
+        this.syllables[o] += 0;
       } else {
-        syllableCount[o] -= 1;
+        this.syllables[o] -= 1;
       }
     } 
     
     let wordsToLetters = this.rows[o][i].split('')
     //this loops over each letter
       for (let j = 0; j < wordsToLetters.length; j++) {
-        if (wordsToLetters[j] === 'a' | wordsToLetters[j] === 'e' | wordsToLetters[j] === 'i'| wordsToLetters[j] === 'o' | wordsToLetters[j] === 'u') {
-          if (wordsToLetters[j-1] === 'a' | wordsToLetters[j-1] === 'e' | wordsToLetters[j-1] === 'i' |  wordsToLetters[j-1] === 'o' | wordsToLetters[j-1] === 'u') {
-          syllableCount[o] += 0;      
+        if (wordsToLetters[j] === 'a' | wordsToLetters[j] === 'e' | wordsToLetters[j] === 'i'| wordsToLetters[j] === 'o' | wordsToLetters[j] === 'u' |wordsToLetters[j] === 'y') {
+          if (wordsToLetters[j-1] === 'a' | wordsToLetters[j-1] === 'e' | wordsToLetters[j-1] === 'i' |  wordsToLetters[j-1] === 'o' | wordsToLetters[j-1] === 'u' | wordsToLetters[j-1] === 'y') {
+          this.syllables[o] += 0;      
           } else {
-          syllableCount[o] += 1;
+          this.syllables[o] += 1;
         }
         }
       } 
-      console.log(syllableCount[0])
-
-
     }
   }
-  return syllableCount
+  return this.syllables
 }
 
+HaikuChecker.prototype.checkHaiku = function () {
+  this.syllableCounter();
+  console.log(this.syllables);
+  if (this.syllables.toString() === "5,7,5") {
+    return true
+  } else {
+    return false
+  }
+}

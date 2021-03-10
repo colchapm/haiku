@@ -5,9 +5,9 @@ describe ('Test', () => {
   
   let newTest;
   beforeEach(() => {
-    let haiku = `A world of dew,
-    And within every dewdrop
-    A world of struggle.`
+    let haiku = `An old silent pond...
+    A frog jumps into the pond,
+    splash! Silence again.`
     newTest = new HaikuChecker(haiku);
   });
 
@@ -20,28 +20,37 @@ describe ('Test', () => {
   })
 
   test('should convert original haiku to all lowercase letters', () => {
-    expect(newTest.lowerCase()).toEqual(newTest.haiku = `a world of dew,
-    and within every dewdrop
-    a world of struggle.`);
+    expect(newTest.lowerCase()).toEqual(newTest.haiku = `an old silent pond...
+    a frog jumps into the pond,
+    splash! silence again.`);
     })
   
   test('should remove all punctuation from the haiku', () => {
     newTest.lowerCase();
-    expect(newTest.removePunct()).toEqual(newTest.haiku = `a world of dew
-    and within every dewdrop
-    a world of struggle`);
+    expect(newTest.removePunct()).toEqual(newTest.haiku = `an old silent pond
+    a frog jumps into the pond
+    splash silence again`);
     })
 
   test('should remove all the whitespace from the haiku and return the three lines in an array', () => {
     newTest.lowerCase();
-    expect(newTest.lineBreaker()).toEqual([["a", "world", "of", "dew,"], ["and", "within", "every", "dewdrop"], ["a", "world", "of", "struggle."]]);
+    newTest.removePunct();
+    expect(newTest.lineBreaker()).toEqual([["an", "old", "silent", "pond"], ["a", "frog", "jumps", "into", "the", "pond"], ["splash", "silence", "again"]]);
     })
 
   test('should return the number of syllables in the entire haiku', () => {
     newTest.lowerCase();
+    newTest.removePunct();
     newTest.lineBreaker();
-    expect(newTest.syllableCounter()).toEqual(16);
+    expect(newTest.syllableCounter()).toEqual(newTest.syllables = [5,7,5]);
   })
   
+  test('should return a boolean to the user whether the haiku has the correct number of syllables in each line', () => {
+    newTest.lowerCase();
+    newTest.removePunct();
+    newTest.lineBreaker();
+    expect(newTest.checkHaiku()).toEqual(true);
+  })
+
 })
 
