@@ -71,7 +71,6 @@ HaikuChecker.prototype.syllableCounter = function () {
 
 HaikuChecker.prototype.checkHaiku = function () {
   this.syllableCounter();
-  console.log(this.syllables);
   if (this.syllables.toString() === "5,7,5") {
     return true
   } else {
